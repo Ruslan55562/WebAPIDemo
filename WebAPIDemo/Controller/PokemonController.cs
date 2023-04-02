@@ -37,9 +37,11 @@ namespace WebAPIDemo.Controller
         [ProducesResponseType(400)]
         public IActionResult GetPokemon(int pokeId)
         {
-            var pokemon = _mapper.Map<PokemonDto>(_pokemonRepository.GetPokemon(pokeId));
             if (!_pokemonRepository.PokemonExists(pokeId))
                 return NotFound();
+
+            var pokemon = _mapper.Map<PokemonDto>(_pokemonRepository.GetPokemon(pokeId));
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
         
@@ -51,9 +53,11 @@ namespace WebAPIDemo.Controller
         [ProducesResponseType(400)]
         public IActionResult  GetPokemonRation(int pokeId)
         {
-            var rating = _pokemonRepository.GetPokemonRating(pokeId);
             if (!_pokemonRepository.PokemonExists(pokeId))
                 return NotFound();
+
+            var rating = _pokemonRepository.GetPokemonRating(pokeId);
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 

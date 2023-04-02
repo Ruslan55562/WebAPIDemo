@@ -6,7 +6,6 @@ using WebAPIDemo.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers();
 builder.Services.AddTransient<Seed>();
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();

@@ -127,5 +127,28 @@ namespace WebAPIDemo.Controller
             return NoContent();
         }
 
+        [HttpDelete("{reviewId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteReview(int reviewId)
+        {
+     
+            var reviewToDelete = _reviewRepository.GetReview(reviewId);
+
+            if (!_reviewRepository.ReviewExists(reviewId))
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            if (!_reviewRepository.DeleteReview(reviewToDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting review");
+            }
+
+            return NoContent();
+        }
+
     }
 }

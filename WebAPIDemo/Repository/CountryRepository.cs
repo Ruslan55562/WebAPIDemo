@@ -37,9 +37,16 @@ namespace WebAPIDemo.Repository
         {
             return _context.Owners.Where(o => o.Country.Id == countryId).ToList();
         }
+
         public bool CreateCountry(Country country)
         {
             _context.Add(country);
+            return Save();
+        }
+
+        public bool UpdateCountry(Country country)
+        {
+            _context.Update(country);
             return Save();
         }
 

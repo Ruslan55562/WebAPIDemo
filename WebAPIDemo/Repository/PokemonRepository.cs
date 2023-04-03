@@ -63,6 +63,12 @@ namespace WebAPIDemo.Repository
             return Save();
         }
 
+        public bool UpdatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        {
+            _context.Update(pokemon);
+            return Save();
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

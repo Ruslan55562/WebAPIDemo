@@ -39,11 +39,17 @@ namespace WebAPIDemo.Repository
             _context.Add(reviewer);
             return Save();
         }
+        public bool UpdateReviewer(Reviewer reviewer)
+        {
+            _context.Update(reviewer);
+            return Save();
+        }
 
         public bool Save()
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
     }
 }

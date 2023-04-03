@@ -99,5 +99,33 @@ namespace WebAPIDemo.Controller
             return Ok("Successfully created");
         }
 
+        [HttpPut("{reviewId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateCountry(int reviewId, [FromBody] ReviewDto reviewUpdate)
+        {
+            if (reviewUpdate == null)
+                return BadRequest(ModelState);
+
+            if (reviewId != reviewUpdate.Id)
+                return BadRequest(ModelState);
+
+            if (!_reviewRepository.ReviewExists(reviewId))
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var reviewerMap = _mapper.Map<Review>(reviewUpdate);
+            if (!_reviewRepository.UpdateReview(reviewerMap))
+            {
+                ModelState.AddModelError("", "Something went wrong updating review");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+        }
+
     }
 }

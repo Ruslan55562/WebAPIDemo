@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 using System.Text.RegularExpressions;
 using WebAPIDemo.Data;
 using WebAPIDemo.Interfaces;
@@ -42,6 +43,12 @@ namespace WebAPIDemo.Repository
         public bool CreateOwner(Owner owner)
         {
             _context.Add(owner);
+            return Save();
+        }
+
+        public bool UpdateOwner(Owner owner)
+        {
+            _context.Update(owner);
             return Save();
         }
 

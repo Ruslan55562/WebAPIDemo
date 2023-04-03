@@ -67,7 +67,7 @@ namespace WebAPIDemo.Controller
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateCountry([FromBody] ReviewerDto reviewerCreate)
+        public IActionResult CreateReviewer([FromBody] ReviewerDto reviewerCreate)
         {
             if (reviewerCreate == null)
                 return BadRequest(ModelState);
@@ -93,6 +93,34 @@ namespace WebAPIDemo.Controller
             }
 
             return Ok("Successfully created");
+        }
+
+        [HttpPut("{reviewerId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateCountry(int reviewerId, [FromBody] ReviewerDto reviewerUpdate)
+        {
+            if (reviewerUpdate == null)
+                return BadRequest(ModelState);
+
+            if (reviewerId != reviewerUpdate.Id)
+                return BadRequest(ModelState);
+
+            if (!_reviewerRepository.ReviewerExists(reviewerId))
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var reviewerMap = _mapper.Map<Reviewer>(reviewerUpdate);
+            if (!_reviewerRepository.UpdateReviewer(reviewerMap))
+            {
+                ModelState.AddModelError("", "Something went wrong updating reviewer");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
         }
 
     }

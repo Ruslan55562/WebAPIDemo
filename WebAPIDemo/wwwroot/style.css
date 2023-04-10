@@ -1,0 +1,49 @@
+﻿body{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width:450px;
+    display: inline-block;
+    margin-right: 250px;
+}
+.getSection {
+    background-color: lightskyblue;
+    min-height: 550px;
+    min-width: 450px;
+}
+.postSection {
+    background-color: lightyellow;
+    min-height: 550px;
+    min-width: 450px;
+}
+.deleteSection {
+    background-color: lightpink;
+    min-height: 550px;
+    min-width: 450px;
+}
+h3 {
+    font-size: 25px;
+    margin-left: 7px;
+    margin-top: 5px;
+    padding-top: 10px;
+}
+#btnGet, #btnAdd, #btnDelete {
+    width: 100px;
+    height: 35px;
+    background-color: antiquewhite;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+#getEntitiesInput, #postEntityInput, #deleteEntityInput {
+    height: 30px;
+    width: 200px;
+    margin: 0 6px 10px;
+    padding-left: 8px;
+}
+#getListOfEntities, #sendJsonBody, #deleteTextArea {
+    width: 400px;
+    height: 400px;
+    margin-left: 6px;
+}

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet"/>
+    <title></title>
+</head>
+<body>
+    <div class="container">
+        <div class="getSection">
+            <h3>Get list of all entities/certain entity</h3>
+            <input id="getEntitiesInput" value="api/" />
+            <button id="btnGet">Get</button>
+            <textarea id="getListOfEntities"></textarea>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="postSection">
+            <h3>Post entity</h3>
+            <input id="postEntityInput" value="api/" />
+            <button id="btnAdd">Add</button>
+            <textarea id="sendJsonBody" placeholder="Put the correct json here"></textarea>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="deleteSection">
+            <h3>Delete entity</h3>
+            <input id="deleteEntityInput" value="api/" />
+            <button id="btnDelete">Delete</button>
+            <textarea id="deleteTextArea"></textarea>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnGet").click(function () {
+                fetch("https://localhost:7044/" + document.getElementById('getEntitiesInput').value)
+                    .then(res => {
+                        return res.json();
+                    })
+                    .then(data => { document.getElementById('getListOfEntities').value = JSON.stringify(data, undefined, 4) })
+                    .catch(error => console.log(error))
+            });
+
+            $("#btnAdd").click(function () {
+                fetch("https://localhost:7044/" + document.getElementById('postEntityInput').value, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: document.getElementById('sendJsonBody').value
+                })
+
+
+                    .then(res => {
+                        return res.text();
+                    })
+                    .then(data => { document.getElementById('sendJsonBody').value = data })
+                    .catch(error => console.log(error))
+            });
+
+            $("#btnDelete").click(function () {
+                fetch("https://localhost:7044/" + document.getElementById('deleteEntityInput').value, {
+                    method: "DELETE",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+
+
+                    .then(res => {
+                        return res.status.toString();
+                    })
+                    .then(data => { document.getElementById('deleteTextArea').value = data })
+                    .catch(error => console.log(error))
+            });
+        });
+    </script>
+</body>
+</html>

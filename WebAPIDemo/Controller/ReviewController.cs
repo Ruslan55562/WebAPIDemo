@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPIDemo.Dto;
 using WebAPIDemo.Interfaces;
 using WebAPIDemo.Models;
-using WebAPIDemo.Repository;
 
 namespace WebAPIDemo.Controller
 {
